@@ -1,8 +1,6 @@
 package com.vitaldev.vitallibs;
 
 import com.vitaldev.vitallibs.util.ConsoleUtil;
-import com.vitaldev.vitallibs.util.FileUtil;
-import dev.respark.licensegate.LicenseGate;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class VitalLibs extends JavaPlugin {

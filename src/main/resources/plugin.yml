@@ -1,0 +1,4 @@
+name: VitalLibs
+version: '1.0-SNAPSHOT'
+main: com.vitaldev.vitallibs.VitalLibs
+api-version: '1.13'

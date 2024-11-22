@@ -23,13 +23,12 @@ public class ChatUtil {
     }
 
     public static boolean containsSpecialCharacters(String input) {
-        // Regular expression that matches anything that is not a letter or a digit
         return !input.matches("[a-zA-Z0-9]*");
     }
 
     public static boolean isStringWithinLength(String input, int minLength, int maxLength) {
         if (input == null) {
-            return false; // Handle null string
+            return false;
         }
         int length = input.length();
         return length >= minLength && length <= maxLength;

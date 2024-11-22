@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.vitaldev.vitallibs.VitalLibs;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.plugin.Plugin;
 
 import java.io.*;
 
@@ -13,29 +14,19 @@ import static org.bukkit.Bukkit.getLogger;
 
 public class FileUtil {
 
-    public VitalLibs plugin;
 
-    public FileUtil(VitalLibs plugin) {
-        this.plugin = plugin;
-    }
-
-    public boolean createJsonFile(String fileName) {
+    public boolean createJsonFile(Plugin plugin, String fileName) {
         if (!fileName.endsWith(".json")) {
             fileName += ".json";
         }
-
-        File jsonFile = new File(this.plugin.getDataFolder(), fileName);
-
+        File jsonFile = new File(plugin.getDataFolder(), fileName);
         try {
             if (!jsonFile.exists()) {
-                // Create the directories if they don't exist
                 jsonFile.getParentFile().mkdirs();
-
                 // Create a new file
                 if (jsonFile.createNewFile()) {
-                    // Optionally, write an empty JSON object or initial content
                     try (FileWriter writer = new FileWriter(jsonFile)) {
-                        writer.write("{}");  // Writing an empty JSON object as the initial content
+                        writer.write("{}");
                     }
                     return true;
                 }
@@ -46,12 +37,12 @@ public class FileUtil {
         return false;
     }
 
-    public java.io.File getJsonFile(String fileName) {
+    public java.io.File getJsonFile(Plugin plugin, String fileName) {
         if (!fileName.endsWith(".json")) {
             fileName += ".json";
         }
 
-        java.io.File jsonFile = new java.io.File(this.plugin.getDataFolder(), fileName);
+        java.io.File jsonFile = new java.io.File(plugin.getDataFolder(), fileName);
 
         if (!jsonFile.exists()) {
             try {
@@ -68,8 +59,8 @@ public class FileUtil {
         return jsonFile;
     }
 
-    public boolean setJsonValue(String filePath, String path, Object value) {
-        File jsonFile = getJsonFile(filePath);
+    public boolean setJsonValue(Plugin plugin, String filePath, String path, Object value) {
+        File jsonFile = getJsonFile(plugin ,filePath);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
         JsonObject jsonObject = jsonFile.exists() ? parseJson(jsonFile) : new JsonObject();
@@ -105,27 +96,27 @@ public class FileUtil {
         }
     }
 
-    public boolean createYmlFile(String fileName) {
+    public boolean createYmlFile(Plugin plugin, String fileName) {
         if (!fileName.endsWith(".yml")) {
             fileName += ".yml";
         }
 
-        File ymlFile = new File(this.plugin.getDataFolder(), fileName);
+        File ymlFile = new File(plugin.getDataFolder(), fileName);
 
         if (!ymlFile.exists()) {
-            this.plugin.saveResource(fileName, false);
+            plugin.saveResource(fileName, false);
             return true;
         }
 
         return false;
     }
 
-    public java.io.File getYmlFile(String fileName) {
+    public java.io.File getYmlFile(Plugin plugin, String fileName) {
         if (!fileName.endsWith(".yml")) {
             fileName += ".yml";
         }
 
-        java.io.File ymlFile = new java.io.File(this.plugin.getDataFolder(), fileName);
+        java.io.File ymlFile = new java.io.File(plugin.getDataFolder(), fileName);
 
         if (!ymlFile.exists()) {
             try {
@@ -141,12 +132,12 @@ public class FileUtil {
         return ymlFile;
     }
 
-    public boolean createTxtFile(String fileName) {
+    public boolean createTxtFile(Plugin plugin, String fileName) {
         if (!fileName.endsWith(".txt")) {
             fileName += ".txt";
         }
 
-        File txtFile = new File(this.plugin.getDataFolder(), fileName);
+        File txtFile = new File(plugin.getDataFolder(), fileName);
 
         if (!txtFile.exists()) {
             try {
@@ -160,15 +151,15 @@ public class FileUtil {
         return false;
     }
 
-    public String getTextFromFile(String fileName) {
+    public String getTextFromFile(Plugin plugin, String fileName) {
         if (!fileName.endsWith(".txt")) {
             fileName += ".txt";
         }
 
-        File txtFile = new File(this.plugin.getDataFolder(), fileName);
+        File txtFile = new File(plugin.getDataFolder(), fileName);
 
         if (!txtFile.exists()) {
-            System.out.println("File not found: " + fileName);
+            ConsoleUtil.sendMessage("  &f| File not found: " + fileName);
             return null;
         }
 
@@ -184,19 +175,19 @@ public class FileUtil {
         return content.toString();
     }
 
-    public boolean createFolder(String folderName) {
-        java.io.File folder = new java.io.File(this.plugin.getDataFolder(), folderName);
+    public boolean createFolder(Plugin plugin, String folderName) {
+        java.io.File folder = new java.io.File(plugin.getDataFolder(), folderName);
         if (!folder.exists()) {
             return folder.mkdirs();
         }
         return true;
     }
 
-    public File getFolder(String folderName) {
-        File folder = new File(this.plugin.getDataFolder(), folderName);
+    public File getFolder(Plugin plugin, String folderName) {
+        File folder = new File(plugin.getDataFolder(), folderName);
         if (!folder.exists()) {
             if (!folder.mkdirs()) {
-                getLogger().warning("Failed to create folder: " + folder.getPath());
+                ConsoleUtil.sendMessage("  &f| Failed to create folder: " + folder.getPath());
             }
         }
         return folder;

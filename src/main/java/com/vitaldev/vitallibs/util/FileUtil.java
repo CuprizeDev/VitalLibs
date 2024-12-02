@@ -4,13 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.vitaldev.vitallibs.VitalLibs;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.Plugin;
 
 import java.io.*;
-
-import static org.bukkit.Bukkit.getLogger;
 
 public class FileUtil {
 

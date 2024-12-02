@@ -4,7 +4,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
-import org.bukkit.plugin.Plugin;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;

@@ -1,16 +1,18 @@
 package com.vitaldev.vitallibs.sql;
 
+import com.vitaldev.vitallibs.util.ConsoleUtil;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public abstract class DatabaseBuilder {
-    private String host;
-    private int port;
-    private String databaseName;
-    private String username;
-    private String password;
+    private final String host;
+    private final int port;
+    private final String databaseName;
+    private final String username;
+    private final String password;
     private Connection connection;
 
     protected abstract void setupTables(Connection connection) throws SQLException;
@@ -41,8 +43,8 @@ public abstract class DatabaseBuilder {
         if (isConnected()) {
             try {
                 connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
+            } catch (SQLException exception) {
+                ConsoleUtil.sendMessage("&f  | An error occurred while accessing the database: " + exception.getMessage());
             }
         }
     }

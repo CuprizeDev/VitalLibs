@@ -95,6 +95,27 @@ public class DatabaseHandler {
         }
     }
 
+    public void savePlayer(Player player) {
+        UUID uuid = player.getUniqueId();
+        Integer value = cache.get(uuid);
+        if (value != null) {
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    try {
+                        PreparedStatement statement = connection.prepareStatement(
+                                "UPDATE " + tableName + " SET " + valueColumn + " = ? WHERE " + uuidColumn + " = ?;");
+                        statement.setInt(1, value);
+                        statement.setString(2, uuid.toString());
+                        statement.executeUpdate();
+                    } catch (SQLException exception) {
+                        ConsoleUtil.sendMessage("&f  | An error occurred while accessing the database: " + exception.getMessage());
+                    }
+                }
+            }.runTaskAsynchronously(plugin);
+        }
+    }
+
     public void setValue(UUID uuid, int value) {
         cache.put(uuid, value);
         new BukkitRunnable() {

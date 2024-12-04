@@ -1,4 +1,4 @@
-package com.vitaldev.vitallibs.sql;
+package com.vitaldev.vitallibs.database;
 
 import com.vitaldev.vitallibs.util.ConsoleUtil;
 

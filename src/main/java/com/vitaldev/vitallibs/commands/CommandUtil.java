@@ -20,8 +20,8 @@ public class CommandUtil {
         if (args.length > argIndex) {
             try {
                 return Integer.parseInt(args[argIndex]);
-            } catch (NumberFormatException e) {
-                sender.sendMessage(ChatUtil.color(message));
+            } catch (NumberFormatException exception) {
+                sender.sendMessage(ChatUtil.color(message.replace("{ARG-INDEX}", String.valueOf(argIndex))));
             }
         }
         return defaultVal;

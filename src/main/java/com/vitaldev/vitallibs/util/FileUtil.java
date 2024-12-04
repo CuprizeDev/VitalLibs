@@ -20,7 +20,6 @@ public class FileUtil {
         try {
             if (!jsonFile.exists()) {
                 jsonFile.getParentFile().mkdirs();
-                // Create a new file
                 if (jsonFile.createNewFile()) {
                     try (FileWriter writer = new FileWriter(jsonFile)) {
                         writer.write("{}");

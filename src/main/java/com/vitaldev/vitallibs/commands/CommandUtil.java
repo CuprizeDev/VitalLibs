@@ -1,6 +1,7 @@
 package com.vitaldev.vitallibs.commands;
 
 import com.vitaldev.vitallibs.util.ChatUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -42,6 +43,14 @@ public class CommandUtil {
             sender.sendMessage(ChatUtil.color(message));
             return false;
         }
+    }
+
+    public static boolean isValidPlayerArgument(CommandSender sender, String[] args, int index, String message) {
+        if (!(Bukkit.getOnlinePlayers().contains(Bukkit.getPlayer(args[index])))) {
+            sender.sendMessage(ChatUtil.color(message));
+            return false;
+        }
+        return true;
     }
 
     public static String getArgument(String[] args, int index) {

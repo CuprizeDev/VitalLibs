@@ -45,12 +45,19 @@ public class CommandUtil {
         }
     }
 
-    public static boolean isValidPlayerArgument(CommandSender sender, String[] args, int index, String message) {
-        if (!(Bukkit.getOnlinePlayers().contains(Bukkit.getPlayer(args[index])))) {
+    public static Player getValidPlayerArgument(CommandSender sender, String[] args, int index, String message) {
+        if (args.length <= index) {
             sender.sendMessage(ChatUtil.color(message));
-            return false;
+            return null;
         }
-        return true;
+
+        Player target = Bukkit.getPlayer(args[index]);
+        if (target == null || !target.isOnline()) {
+            sender.sendMessage(ChatUtil.color(message));
+            return null;
+        }
+
+        return target;
     }
 
     public static String getArgument(String[] args, int index) {

@@ -1,5 +1,6 @@
 package com.vitaldev.vitallibs.config;
 
+import com.vitaldev.vitallibs.util.ChatUtil;
 import com.vitaldev.vitallibs.util.ConsoleUtil;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -11,7 +12,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
-public class ConfigManager {
+public class ConfigHandler {
     private final File file;
     private final FileConfiguration config;
     private final Plugin plugin;
@@ -20,7 +21,7 @@ public class ConfigManager {
     private static final boolean DEFAULT_ENABLED = true;
     private static final int DEFAULT_TIMEOUT = 30;
 
-    public ConfigManager(Plugin plugin, File file) {
+    public ConfigHandler(Plugin plugin, File file) {
         this.plugin = plugin;
         this.file = file;
 
@@ -38,6 +39,10 @@ public class ConfigManager {
         }
 
         this.config = YamlConfiguration.loadConfiguration(file);
+    }
+
+    public String getMessage(String key) {
+        return ChatUtil.color(config.getString(key, DEFAULT_MESSAGE));
     }
 
     public String getString(String key) {

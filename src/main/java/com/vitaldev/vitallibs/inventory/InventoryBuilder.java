@@ -9,10 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.Consumer;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class InventoryBuilder {
 
@@ -49,36 +46,24 @@ public class InventoryBuilder {
         return this;
     }
 
-    public InventoryBuilder fillWithBorderItem(ItemStack item) {
-        int size = inventory.getSize();
-        int rows = size / 9;
 
-        for (int i = 0; i < 9; i++) {
-            if (inventory.getItem(i) == null || inventory.getItem(i).getType() == Material.AIR) {
-                inventory.setItem(i, item);
-            }
-            if (inventory.getItem(size - 1 - i) == null || inventory.getItem(size - 1 - i).getType() == Material.AIR) {
-                inventory.setItem(size - 1 - i, item);
-            }
-        }
-
-        for (int i = 1; i < rows - 1; i++) {
-            if (inventory.getItem(i * 9) == null || inventory.getItem(i * 9).getType() == Material.AIR) {
-                inventory.setItem(i * 9, item);
-            }
-            if (inventory.getItem(i * 9 + 8) == null || inventory.getItem(i * 9 + 8).getType() == Material.AIR) {
-                inventory.setItem(i * 9 + 8, item);
-            }
-        }
-
-        return this;
-    }
-
-    public InventoryBuilder fillWithRowItem(ItemStack item, int row) {
+    public InventoryBuilder fillRowWithItem(ItemStack item, int row) {
         int start = row * 9;
         for (int i = start; i < start + 9; i++) {
             if (inventory.getItem(i) == null || inventory.getItem(i).getType() == Material.AIR) {
                 inventory.setItem(i, item);
+            }
+        }
+        return this;
+    }
+
+    public InventoryBuilder fillWithBorderItem(ItemStack item) {
+        int size = inventory.getSize();
+        for (int i = 0; i < size; i++) {
+            if (i < 9 || i >= size - 9 || i % 9 == 0 || (i + 1) % 9 == 0) {
+                if (inventory.getItem(i) == null || inventory.getItem(i).getType() == Material.AIR) {
+                    inventory.setItem(i, item);
+                }
             }
         }
         return this;
@@ -95,20 +80,20 @@ public class InventoryBuilder {
         return this;
     }
 
-    public InventoryBuilder setItem(int slot, ItemStack item) {
-        inventory.setItem(slot, item);
+    public InventoryBuilder setCloseButton(ItemStack item, Consumer<InventoryClickEvent> clickAction) {
+        int size = inventory.getSize();
+        int middleBottomSlot = size - 9 + 4; // Center of the last row
+
+        inventory.setItem(middleBottomSlot, item);
+        if (clickAction != null) {
+            clickActions.put(middleBottomSlot, clickAction);
+        }
+
         return this;
     }
 
-    public InventoryBuilder setBorder(ItemStack item) {
-        int size = inventory.getSize();
-        for (int i = 0; i < size; i++) {
-            if (i < 9 || i >= size - 9 || i % 9 == 0 || (i + 1) % 9 == 0) {
-                if (inventory.getItem(i) == null || inventory.getItem(i).getType() == Material.AIR) {
-                    inventory.setItem(i, item);
-                }
-            }
-        }
+    public InventoryBuilder setItem(int slot, ItemStack item) {
+        inventory.setItem(slot, item);
         return this;
     }
 
@@ -130,9 +115,7 @@ public class InventoryBuilder {
         if (meta != null) {
             meta.setDisplayName(name);
             List<String> loreList = new ArrayList<>();
-            for (String line : lore) {
-                loreList.add(line);
-            }
+            Collections.addAll(loreList, lore);
             meta.setLore(loreList);
             item.setItemMeta(meta);
         }

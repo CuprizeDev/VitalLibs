@@ -9,7 +9,7 @@ public final class VitalLibs extends JavaPlugin {
     public void onEnable() {
         ConsoleUtil.sendMessage("  &f|");
         ConsoleUtil.sendMessage("  &f| VitalLibs - Activating Plugin!");
-        ConsoleUtil.sendMessage("  &f| Version - 1.3");
+        ConsoleUtil.sendMessage("  &f| Version - 1.4");
         ConsoleUtil.sendMessage("  &f| Vital Development - https://discord.gg/eqyXAH7T2k");
         ConsoleUtil.sendMessage("  &f|");
     }

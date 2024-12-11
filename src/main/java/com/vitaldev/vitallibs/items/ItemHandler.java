@@ -1,6 +1,5 @@
 package com.vitaldev.vitallibs.items;
 
-import com.cryptomorin.xseries.XMaterial;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
@@ -13,7 +12,7 @@ import java.util.Map;
 public class ItemHandler {
 
     public static ItemStack buildItem(Material material, String name, int amount, List<String> lore, boolean glow) {
-        ItemStack itemStack = XMaterial.matchXMaterial(material).parseItem();
+        ItemStack itemStack = new ItemStack(material);
         itemStack.setAmount(amount);
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName(name);

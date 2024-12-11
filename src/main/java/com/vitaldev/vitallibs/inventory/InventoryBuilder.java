@@ -40,6 +40,61 @@ public class InventoryBuilder {
         return this;
     }
 
+    public InventoryBuilder fillWithCheckeredItem(ItemStack item) {
+        for (int i = 0; i < inventory.getSize(); i++) {
+            if ((i % 2 == 0) && (inventory.getItem(i) == null || inventory.getItem(i).getType() == Material.AIR)) {
+                inventory.setItem(i, item);
+            }
+        }
+        return this;
+    }
+
+    public InventoryBuilder fillWithBorderItem(ItemStack item) {
+        int size = inventory.getSize();
+        int rows = size / 9;
+
+        for (int i = 0; i < 9; i++) {
+            if (inventory.getItem(i) == null || inventory.getItem(i).getType() == Material.AIR) {
+                inventory.setItem(i, item);
+            }
+            if (inventory.getItem(size - 1 - i) == null || inventory.getItem(size - 1 - i).getType() == Material.AIR) {
+                inventory.setItem(size - 1 - i, item);
+            }
+        }
+
+        for (int i = 1; i < rows - 1; i++) {
+            if (inventory.getItem(i * 9) == null || inventory.getItem(i * 9).getType() == Material.AIR) {
+                inventory.setItem(i * 9, item);
+            }
+            if (inventory.getItem(i * 9 + 8) == null || inventory.getItem(i * 9 + 8).getType() == Material.AIR) {
+                inventory.setItem(i * 9 + 8, item);
+            }
+        }
+
+        return this;
+    }
+
+    public InventoryBuilder fillWithRowItem(ItemStack item, int row) {
+        int start = row * 9;
+        for (int i = start; i < start + 9; i++) {
+            if (inventory.getItem(i) == null || inventory.getItem(i).getType() == Material.AIR) {
+                inventory.setItem(i, item);
+            }
+        }
+        return this;
+    }
+
+    public InventoryBuilder fillWithCustomPatternItem(ItemStack item, int[] pattern) {
+        for (int slot : pattern) {
+            if (slot >= 0 && slot < inventory.getSize()) {
+                if (inventory.getItem(slot) == null || inventory.getItem(slot).getType() == Material.AIR) {
+                    inventory.setItem(slot, item);
+                }
+            }
+        }
+        return this;
+    }
+
     public InventoryBuilder setItem(int slot, ItemStack item) {
         inventory.setItem(slot, item);
         return this;

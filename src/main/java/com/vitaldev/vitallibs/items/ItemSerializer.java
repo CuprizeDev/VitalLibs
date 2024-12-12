@@ -1,13 +1,14 @@
 package com.vitaldev.vitallibs.items;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
-import org.bukkit.NamespacedKey;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+
 import java.util.Base64;
 
 public class ItemSerializer {

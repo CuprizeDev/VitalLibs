@@ -46,7 +46,6 @@ public class InventoryBuilder {
         return this;
     }
 
-
     public InventoryBuilder fillRowWithItem(ItemStack item, int row) {
         int start = row * 9;
         for (int i = start; i < start + 9; i++) {
@@ -107,18 +106,5 @@ public class InventoryBuilder {
 
     public Map<Integer, Consumer<InventoryClickEvent>> getClickActions() {
         return clickActions;
-    }
-
-    public static ItemStack createItem(Material material, String name, String... lore) {
-        ItemStack item = new ItemStack(material);
-        ItemMeta meta = item.getItemMeta();
-        if (meta != null) {
-            meta.setDisplayName(name);
-            List<String> loreList = new ArrayList<>();
-            Collections.addAll(loreList, lore);
-            meta.setLore(loreList);
-            item.setItemMeta(meta);
-        }
-        return item;
     }
 }

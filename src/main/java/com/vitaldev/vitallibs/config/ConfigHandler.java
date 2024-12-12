@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class ConfigHandler {
     private final File file;
@@ -43,6 +44,10 @@ public class ConfigHandler {
 
     public String getMessage(String key) {
         return ChatUtil.color(config.getString(key, DEFAULT_MESSAGE));
+    }
+
+    public List<String> getColoredList(String key) {
+        return config.getStringList(key).stream().map(ChatUtil::color).collect(Collectors.toList());
     }
 
     public String getString(String key) {

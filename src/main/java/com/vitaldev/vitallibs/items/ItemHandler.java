@@ -8,6 +8,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class ItemHandler {
 
@@ -15,7 +16,7 @@ public class ItemHandler {
         ItemStack itemStack = new ItemStack(material);
         itemStack.setAmount(amount);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        itemMeta.setDisplayName(name);
+        Objects.requireNonNull(itemMeta).setDisplayName(name);
         itemMeta.setLore(lore);
         if (glow) {
             itemMeta.addEnchant(Enchantment.LURE, 1, true);

@@ -1,13 +1,18 @@
 package com.vitaldev.vitallibs.inventory;
 
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.Consumer;
 
-public class InventoryHandler {
+public class InventoryHandler implements Listener {
     private final Map<UUID, Inventory> playerInventories = new HashMap<>();
 
     public void openInventory(Player player, Inventory inventory) {
@@ -32,5 +37,22 @@ public class InventoryHandler {
 
     public void clearAllInventories() {
         playerInventories.clear();
+    }
+
+    @EventHandler
+    public void onInventoryClick(InventoryClickEvent event) {
+        InventoryHolder holder = event.getInventory().getHolder();
+        if (holder instanceof InventoryBuilder.CustomInventoryHolder customHolder) {
+            event.setCancelled(true);
+
+            int slot = event.getRawSlot();
+
+            Map<Integer, Consumer<InventoryClickEvent>> clickActions = customHolder.clickActions();
+            Consumer<InventoryClickEvent> clickAction = clickActions.get(slot);
+
+            if (clickAction != null) {
+                clickAction.accept(event);
+            }
+        }
     }
 }

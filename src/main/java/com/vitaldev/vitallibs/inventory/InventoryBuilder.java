@@ -3,6 +3,8 @@ package com.vitaldev.vitallibs.inventory;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
@@ -13,7 +15,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Consumer;
 
-public class InventoryBuilder {
+public class InventoryBuilder implements Listener {
 
     private final Inventory inventory;
     private final Map<Integer, Consumer<InventoryClickEvent>> clickActions = new HashMap<>();
@@ -110,7 +112,7 @@ public class InventoryBuilder {
         return clickActions;
     }
 
-    private record CustomInventoryHolder(
+    public record CustomInventoryHolder(
             Map<Integer, Consumer<InventoryClickEvent>> clickActions) implements InventoryHolder {
 
         @Override

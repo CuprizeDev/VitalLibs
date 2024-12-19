@@ -3,7 +3,6 @@ package com.vitaldev.vitallibs.inventory;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
@@ -85,13 +84,12 @@ public class InventoryBuilder implements Listener {
 
     public InventoryBuilder setCloseButton(ItemStack item, Consumer<InventoryClickEvent> clickAction) {
         int size = inventory.getSize();
-        int middleBottomSlot = size - 9 + 4; // Center of the last row
+        int middleBottomSlot = size - 9 + 4;
 
         inventory.setItem(middleBottomSlot, item);
         if (clickAction != null) {
             clickActions.put(middleBottomSlot, clickAction);
         }
-
         return this;
     }
 
@@ -114,10 +112,9 @@ public class InventoryBuilder implements Listener {
 
     public record CustomInventoryHolder(
             Map<Integer, Consumer<InventoryClickEvent>> clickActions) implements InventoryHolder {
-
         @Override
-            public Inventory getInventory() {
-                return null;
-            }
+        public Inventory getInventory() {
+            return null;
         }
+    }
 }

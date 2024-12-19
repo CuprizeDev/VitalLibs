@@ -12,7 +12,7 @@ import java.util.Objects;
 
 public class ItemHandler {
 
-    public static ItemStack buildItem(Material material, String name, int amount, List<String> lore, boolean glow) {
+    public static ItemStack buildItem(Material material, String name, int amount, List<String> lore, boolean glow, boolean hideAttributes) {
         ItemStack itemStack = new ItemStack(material);
         itemStack.setAmount(amount);
         ItemMeta itemMeta = itemStack.getItemMeta();
@@ -22,6 +22,11 @@ public class ItemHandler {
             itemMeta.addEnchant(Enchantment.LURE, 1, true);
             itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
+
+        if (hideAttributes) {
+            itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        }
+
         itemStack.setItemMeta(itemMeta);
         return itemStack;
     }

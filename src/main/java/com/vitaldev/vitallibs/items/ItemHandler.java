@@ -1,5 +1,6 @@
 package com.vitaldev.vitallibs.items;
 
+import com.vitaldev.vitallibs.util.ChatUtil;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
@@ -9,6 +10,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class ItemHandler {
 
@@ -16,8 +18,8 @@ public class ItemHandler {
         ItemStack itemStack = new ItemStack(material);
         itemStack.setAmount(amount);
         ItemMeta itemMeta = itemStack.getItemMeta();
-        Objects.requireNonNull(itemMeta).setDisplayName(name);
-        itemMeta.setLore(lore);
+        Objects.requireNonNull(itemMeta).setDisplayName(ChatUtil.color(name));
+        itemMeta.setLore(lore.stream().map(ChatUtil::color).collect(Collectors.toList()));
         if (glow) {
             itemMeta.addEnchant(Enchantment.LURE, 1, true);
             itemMeta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
@@ -25,6 +27,7 @@ public class ItemHandler {
 
         if (hideAttributes) {
             itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+            itemMeta.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP);
         }
 
         itemStack.setItemMeta(itemMeta);

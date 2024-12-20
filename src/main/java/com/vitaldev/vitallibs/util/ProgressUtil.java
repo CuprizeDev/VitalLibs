@@ -8,8 +8,7 @@ public class ProgressUtil {
         int progressBars = (int) (totalBars * completedPercent);
         String uncompletedColor = ChatUtil.color("&7");
 
-        return Strings.repeat("" + completedColor + symbol, progressBars) + Strings.repeat("" +
-                uncompletedColor + symbol, totalBars - progressBars);
+        return Strings.repeat(completedColor + symbol, progressBars) + Strings.repeat(uncompletedColor + symbol, totalBars - progressBars);
 
     }
 }

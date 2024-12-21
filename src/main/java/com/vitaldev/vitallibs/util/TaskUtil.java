@@ -51,6 +51,17 @@ public class TaskUtil {
         return task != null && !task.isCancelled();
     }
 
+    public void scheduleRepeatingTask(Player player, String taskType, Runnable code, int intervalSeconds) {
+        cancelTask(player, taskType);
+        BukkitTask newTask = new BukkitRunnable() {
+            @Override
+            public void run() {
+                code.run();
+            }
+        }.runTaskTimer(plugin, 0L, intervalSeconds * 20L);
+        playerTasks.computeIfAbsent(player, p -> new HashMap<>()).put(taskType, newTask);
+    }
+
     private void removeTask(Player player, String taskType) {
         if (playerTasks.containsKey(player)) {
             HashMap<String, BukkitTask> tasks = playerTasks.get(player);

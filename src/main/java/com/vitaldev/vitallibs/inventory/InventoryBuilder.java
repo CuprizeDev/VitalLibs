@@ -93,6 +93,17 @@ public class InventoryBuilder implements Listener {
         return this;
     }
 
+    public InventoryBuilder setBackButton(ItemStack item, Consumer<InventoryClickEvent> clickAction) {
+        int size = inventory.getSize();
+        int middleBottomSlot = size - 9 + 3;
+
+        inventory.setItem(middleBottomSlot, item);
+        if (clickAction != null) {
+            clickActions.put(middleBottomSlot, clickAction);
+        }
+        return this;
+    }
+
     public InventoryBuilder setItem(int slot, ItemStack item) {
         inventory.setItem(slot, item);
         return this;

@@ -7,6 +7,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -180,6 +182,24 @@ public class DatabaseHandler {
 
     public int getValue(UUID uuid) {
         return cache.getOrDefault(uuid, 0);
+    }
+
+    public HashMap<UUID, Integer> getAllPlayerValues() {
+        HashMap<UUID, Integer> resultMap = new HashMap<>();
+        String query = "SELECT " + uuidColumn + ", " + valueColumn + " FROM " + tableName + ";";
+
+        try (PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+            while (resultSet.next()) {
+                UUID uuid = UUID.fromString(resultSet.getString(uuidColumn));
+                int value = resultSet.getInt(valueColumn);
+                resultMap.put(uuid, value);
+            }
+        } catch (SQLException e) {
+            ConsoleUtil.sendMessage("&f  | An error occurred while accessing the database: " + e.getMessage());
+        }
+
+        return resultMap;
     }
 
     public void closeConnection() {

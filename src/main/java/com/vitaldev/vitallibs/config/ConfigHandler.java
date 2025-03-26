@@ -2,6 +2,7 @@ package com.vitaldev.vitallibs.config;
 
 import com.vitaldev.vitallibs.util.ChatUtil;
 import com.vitaldev.vitallibs.util.ConsoleUtil;
+import com.vitaldev.vitallibs.util.StringUtil;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -43,11 +44,13 @@ public class ConfigHandler {
     }
 
     public String getMessage(String key) {
-        return ChatUtil.color(config.getString(key, DEFAULT_MESSAGE));
+        return ChatUtil.color(StringUtil.centerChat(config.getString(key, DEFAULT_MESSAGE)));
     }
 
     public List<String> getColoredList(String key) {
-        return config.getStringList(key).stream().map(ChatUtil::color).collect(Collectors.toList());
+        return config.getStringList(key).stream()
+                .map(line -> StringUtil.centerChat(ChatUtil.color(line)))
+                .collect(Collectors.toList());
     }
 
     public String getString(String key) {

@@ -9,6 +9,5 @@ public class ProgressUtil {
         String uncompletedColor = ChatUtil.color("&7");
 
         return Strings.repeat(completedColor + symbol, progressBars) + Strings.repeat(uncompletedColor + symbol, totalBars - progressBars);
-
     }
 }

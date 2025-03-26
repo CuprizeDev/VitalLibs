@@ -1,6 +1,7 @@
 package com.vitaldev.vitallibs.util;
 
 public class StringUtil {
+
     public static String padLeft(String text, int length) {
         return String.format("%" + length + "s", text);
     }
@@ -32,6 +33,48 @@ public class StringUtil {
         if (text == null) return null;
         return text.trim();
     }
+
+
+    public static String centerChat(String message) {
+        final int CENTER_PX = 154;
+
+        if (message == null || message.isEmpty()) {
+            return "";
+        }
+
+        int messagePxSize = 0;
+        boolean previousCode = false;
+        boolean isBold = false;
+
+        for (char c : message.toCharArray()) {
+            if (c == '§') { // Color code symbol
+                previousCode = true;
+                continue;
+            } else if (previousCode) {
+                previousCode = false;
+                isBold = (c == 'l' || c == 'L'); // Check if bold
+                continue;
+            }
+
+            DefaultFont dFI = DefaultFont.getDefaultFontInfo(c);
+            messagePxSize += isBold ? dFI.getBoldLength() : dFI.getLength();
+            messagePxSize++; // Add spacing
+        }
+
+        int halvedMessageSize = messagePxSize / 2;
+        int toCompensate = CENTER_PX - halvedMessageSize;
+        int spaceLength = DefaultFont.SPACE.getLength() + 1;
+        int compensated = 0;
+        StringBuilder sb = new StringBuilder();
+
+        while (compensated < toCompensate) {
+            sb.append(" ");
+            compensated += spaceLength;
+        }
+
+        return sb.toString() + message;
+    }
+
 
     public static String reverse(String text) {
         if (text == null) return null;

@@ -1,6 +1,5 @@
 package com.vitaldev.vitallibs;
 
-import com.vitaldev.vitallibs.inventory.InventoryBuilder;
 import com.vitaldev.vitallibs.inventory.InventoryHandler;
 import com.vitaldev.vitallibs.util.ConsoleUtil;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -11,7 +10,7 @@ public final class VitalLibs extends JavaPlugin {
     public void onEnable() {
         ConsoleUtil.sendMessage("  &f|");
         ConsoleUtil.sendMessage("  &f| VitalLibs - Activating Plugin!");
-        ConsoleUtil.sendMessage("  &f| Version - 1.5");
+        ConsoleUtil.sendMessage("  &f| Version - 1.7");
         ConsoleUtil.sendMessage("  &f| Vital Development - https://discord.gg/eqyXAH7T2k");
         ConsoleUtil.sendMessage("  &f|");
 

@@ -1,14 +1,14 @@
 package com.vitaldev.vitallibs.items;
 
-import com.vitaldev.vitallibs.VitalLibs;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class NBTHandler {
-    public VitalLibs plugin;
-    public NBTHandler(VitalLibs plugin) {
+    public JavaPlugin plugin;
+    public NBTHandler(JavaPlugin plugin) {
         this.plugin = plugin;
     }
 
